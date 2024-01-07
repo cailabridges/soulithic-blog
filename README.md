@@ -7,14 +7,14 @@
 * [Code Examples](#code-examples)
 * [Features](#soulithic-blog-features)
 * [Status](#status)
-* [Why Mamba Game](#why-soulithic-blog)
+* [Why Soulithic Blog](#why-soulithic-blog)
 * [Contact](#contact)
 
 ## About Soulithic Blog
 Soulithic Blog represents an intricately developed web application utilizing JavaScript (JSX), Express, Node.js, and MySQL. Engineered with robust backend authentication and database management, it offers a secure environment for creating, organizing, and managing blog content. This platform prioritizes a seamless and secure blogging experience, leveraging modern web technologies for efficient content sharing and management.
 
 ## Soulithic blog Walkthrough Video
-[Mamba Game Walkthrough Video](https://youtu.be/u3x1Lev1qz8)
+[Soulithic Blog Walkthrough Video](https://youtu.be/OBc8XLjKY7c)
 
 ## Technologies
 JavaScript (JSX), Express, Node.js, MySQL

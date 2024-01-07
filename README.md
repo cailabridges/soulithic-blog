@@ -22,57 +22,59 @@ JavaScript (JSX), Express, Node.js, MySQL
 ## Code Examples
 
 ```
-def next_turn(snake, food):
-    global score
-    x, y = snake.coordinates[0]
+export const register = (req, res) => {
+  const q = "SELECT * FROM users WHERE username = ? OR email = ?";
+  db.query(q, [req.body.username, req.body.email], (err, data) => {
+    if (err) return res.json(err);
+    if (data.length) return res.status(409).json("User already exists!");
 
-    if direction == "up":
-        y -= SPACE_SIZE
-    elif direction == "down":
-        y += SPACE_SIZE
-    elif direction == "left":
-        x -= SPACE_SIZE
-    elif direction == "right":
-        x += SPACE_SIZE
+    // Hash password
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
 
-    snake.coordinates.insert(0, [x, y])
-    snake.update_head(direction)
+    const q =
+      "INSERT INTO users (`username`, `email`, `password`) VALUES (?, ?, ?)";
+    const values = [req.body.username, req.body.email, hash];
 
-    square = snake.canvas.create_image(
-        x, y, anchor=NW, image=snake_head, tags="snake")
-    snake.squares.insert(0, square)
-
-    if x == food.coordinates[0] and y == food.coordinates[1]:
-        global score
-        score += 1
-        label.config(text="Score : {}".format(score))
-        canvas.delete("food")
-        food = Food(canvas, snake.coordinates)
-    else:
-        del snake.coordinates[-1]
-        canvas.delete(snake.squares[-1])
-        del snake.squares[-1]
-        snake.update_tail()
-
-    if check_collisions(snake):
-        game_over()
-        return
-
-    window.after(SPEED, next_turn, snake, food)
-
+    db.query(q, values, (err, data) => {
+      if (err) return res.json(err);
+      return res.status(200).json("User has been created.");
+    });
+  });
+};
 ```
 ```
-def check_collisions(snake):
-    x, y = snake.coordinates[0]
-    if x < 0 or x >= GAME_WIDTH or y < 0 or y >= GAME_HEIGHT - (SPACE_SIZE*2):
-        print("GAME OVER")
-        return True
+export const addPost = (req, res) => {
+  const token = req.cookies.access_token;
 
-    for body_part in snake.coordinates[1:]:
-        if x == body_part[0] and y == body_part[1]:
-            return True
-    return False
+  if (!token) {
+    return res.status(401).json("Not authenticated!");
+  }
+
+  jwt.verify(token, "jwtkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid!");
+
+    const q =
+      "INSERT INTO posts (title, `desc`, img, cat, date, uid) VALUES (?, ?, ?, ?, ?, ?)";
+    const values = [
+      req.body.title,
+      req.body.desc,
+      req.body.img,
+      req.body.cat,
+      req.body.date,
+      userInfo.id,
+    ];
+
+    db.query(q, values, (err, data) => {
+      if (err) return res.status(500).json(err);
+
+      return res.json("Post has been created.");
+    });
+  });
+};
+
 ```
+
 ## Soulithic Blog Features
 * Secure user authentication and encrypted passwords for login/logout functionality.
 * Categorized posts with edit and delete options, ensuring an organized and customizable blogging experience.

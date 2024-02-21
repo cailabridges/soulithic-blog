@@ -30,7 +30,8 @@
     "react-router-dom": "^6.21.0",
     "sass": "^1.69.5",
     "slate": "^0.101.5",
-    "slate-react": "^0.101.5"
+    "slate-react": "^0.101.5",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

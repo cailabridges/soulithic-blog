@@ -1,11 +1,11 @@
-const express = require("express");
-const cors = require("cors");
-const authRoutes = require("./routes/auth.js");
-const userRoutes = require("./routes/users.js");
-const postRoutes = require("./routes/posts.js");
-const cookieParser = require("cookie-parser");
-const multer = require("multer");
-const path = require("path");
+import express from "express";
+import cors from "cors";
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import postRoutes from "./routes/posts.js";
+import cookieParser from "cookie-parser";
+import multer from "multer";
+import path from "path"; // Import path module to resolve file paths
 
 const app = express();
 
@@ -18,11 +18,12 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 
+// Resolve the absolute path to the upload directory
 const uploadDir = path.resolve(__dirname, "../client/dist/upload");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadDir);
+    cb(null, uploadDir); // Use the resolved upload directory path
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname);

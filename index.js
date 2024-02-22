@@ -1,33 +1,34 @@
-import express from "express";
-import cors from "cors";
-import authRoutes from "./api/routes/auth.js"; // Adjusted path
-import userRoutes from "./api/routes/users.js"; // Adjusted path
-import postRoutes from "./api/routes/posts.js"; // Adjusted path
-import cookieParser from "cookie-parser";
-import multer from "multer";
+const express = require("express");
+const cors = require("cors");
+const authRoutes = require("./api/routes/auth.js");
+const userRoutes = require("./api/routes/users.js");
+const postRoutes = require("./api/routes/posts.js");
+const cookieParser = require("cookie-parser");
+const multer = require("multer");
+const path = require("path");
 
 const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Replace with your frontend domain
-    credentials: true, // This is important for cookies
+    origin: "http://localhost:5173",
+    credentials: true,
   })
 );
 app.use(cookieParser());
 app.use(express.json());
 
-// Multer configuration for file uploads
+const uploadDir = path.resolve(__dirname, "../client/dist/upload");
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./client/dist/upload"); // Adjusted path
+    cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname);
   },
 });
 
-// Express route to handle image upload
 app.post("/api/upload", (req, res) => {
   const userImageUpload = multer({ storage: storage }).single("file");
 
@@ -37,18 +38,15 @@ app.post("/api/upload", (req, res) => {
         .status(500)
         .json({ message: "Error uploading image", error: err });
     }
-    // Assuming the image was successfully uploaded and stored
-    // Return the URL where the image is stored
     res.status(200).json({ imageUrl: `${req.file.filename}` });
   });
 });
 
-// Define routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 
-const PORT = process.env.PORT || 8800; // Adjusted port to use environment variable or default to 8800
+const PORT = process.env.PORT || 8800; // Use the port provided by Heroku or default to 8800
 
 app.listen(PORT, () => {
   console.log(`Server connected and listening on port ${PORT}!`);

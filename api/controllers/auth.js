@@ -1,5 +1,5 @@
 import { db } from "../db.js";
-import bcrypt from "bcryptjs";
+import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const register = (req, res) => {
@@ -9,8 +9,8 @@ export const register = (req, res) => {
     if (data.length) return res.status(409).json("User already exists!");
 
     // Hash password
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
+    const salt = bcryptjs.genSaltSync(10);
+    const hash = bcryptjs.hashSync(req.body.password, salt);
 
     const q =
       "INSERT INTO users (`username`, `email`, `password`) VALUES (?, ?, ?)";
@@ -38,7 +38,7 @@ export const login = (req, res) => {
     }
 
     // CHECK PASSWORD
-    const isPasswordCorrect = bcrypt.compareSync(
+    const isPasswordCorrect = bcryptjs.compareSync(
       req.body.password,
       data[0].password
     );

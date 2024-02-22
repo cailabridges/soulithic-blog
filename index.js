@@ -1,11 +1,8 @@
-const express = require("express");
-const cors = require("cors");
-const authRoutes = require("./api/routes/auth.js");
-const userRoutes = require("./api/routes/users.js");
-const postRoutes = require("./api/routes/posts.js");
-const cookieParser = require("cookie-parser");
-const multer = require("multer");
-const path = require("path");
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import multer from "multer";
+import path from "path";
 
 const app = express();
 
@@ -42,9 +39,20 @@ app.post("/api/upload", (req, res) => {
   });
 });
 
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/posts", postRoutes);
+// Dynamic imports for ES Modules
+Promise.all([
+  import("./api/routes/auth.js"),
+  import("./api/routes/users.js"),
+  import("./api/routes/posts.js"),
+])
+  .then(([authRoutes, userRoutes, postRoutes]) => {
+    app.use("/api/auth", authRoutes.default);
+    app.use("/api/users", userRoutes.default);
+    app.use("/api/posts", postRoutes.default);
+  })
+  .catch((err) => {
+    console.error("Error importing modules:", err);
+  });
 
 const PORT = process.env.PORT || 8800; // Use the port provided by Heroku or default to 8800
 

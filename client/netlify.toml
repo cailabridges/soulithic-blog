@@ -1,8 +1,7 @@
 [[headers]]
   for = "*.js"
-    [headers.values]
+  [headers.values]
     Content-Type = "text/javascript"
-
 
 [[redirects]]
   from = "/*"

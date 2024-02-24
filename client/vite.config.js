@@ -6,7 +6,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:8800",
+        target: "https://soulithic-blog-0c6e31e9a9e9.herokuapp.com",
+        // target: "http://localhost:8800",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

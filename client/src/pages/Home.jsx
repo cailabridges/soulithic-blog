@@ -9,9 +9,13 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:8800/api/posts${cat}`, {
-          withCredentials: true,
-        });
+        // const res = await axios.get(`http://localhost:8800/api/posts${cat}`, {
+        const res = await axios.get(
+          `https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/posts${cat}`,
+          {
+            withCredentials: true,
+          }
+        );
         setPosts(res.data);
       } catch (err) {
         console.log(err);

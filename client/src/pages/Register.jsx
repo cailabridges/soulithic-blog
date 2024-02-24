@@ -22,9 +22,14 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8800/api/auth/register", inputs, {
-        withCredentials: true,
-      });
+      // await axios.post("http://localhost:8800/api/auth/register", inputs, {
+      await axios.post(
+        "https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/auth/register",
+        inputs,
+        {
+          withCredentials: true,
+        }
+      );
       navigate("/login");
     } catch (err) {
       setError(err.response.data);

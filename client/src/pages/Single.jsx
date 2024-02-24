@@ -20,8 +20,10 @@ const Single = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // const res = await axios.get(
+        //   `http://localhost:8800/api/posts/${postId}`,
         const res = await axios.get(
-          `http://localhost:8800/api/posts/${postId}`,
+          `https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/posts/${postId}`,
           { withCredentials: true }
         );
         setPost(res.data);
@@ -34,9 +36,13 @@ const Single = () => {
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`http://localhost:8800/api/posts/${postId}`, {
-        withCredentials: true,
-      });
+      // await axiosInstance.delete(`http://localhost:8800/api/posts/${postId}`, {
+      await axiosInstance.delete(
+        `https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/posts/${postId}`,
+        {
+          withCredentials: true,
+        }
+      );
       navigate("/");
     } catch (err) {
       console.log(err);

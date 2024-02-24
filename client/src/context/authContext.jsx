@@ -11,8 +11,10 @@ export const AuthContextProvider = ({ children }) => {
 
   const login = async (inputs) => {
     try {
+      //  const res = await axios.post(
+      //   "http://localhost:8800/api/auth/login",
       const res = await axios.post(
-        "http://localhost:8800/api/auth/login",
+        "https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/auth/login",
         inputs,
         { withCredentials: true }
       );
@@ -26,7 +28,10 @@ export const AuthContextProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post("http://localhost:8800/api/auth/logout");
+      // await axios.post("http://localhost:8800/api/auth/logout");
+      await axios.post(
+        "https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/auth/logout"
+      );
       setCurrentUser(null);
       localStorage.removeItem("user");
     } catch (error) {

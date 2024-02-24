@@ -1,8 +1,12 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
+// const instance = axios.create({
+//   baseURL: "http://localhost:8800/api",
+// });
+
 const instance = axios.create({
-  baseURL: "http://localhost:8800/api",
+  baseURL: "https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api",
 });
 
 instance.interceptors.request.use(

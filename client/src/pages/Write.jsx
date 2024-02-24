@@ -48,8 +48,10 @@ const Write = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
+      // const res = await axios.post(
+      //   "http://localhost:8800/api/upload",
       const res = await axios.post(
-        "http://localhost:8800/api/upload",
+        "https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/upload",
         formData,
         {
           withCredentials: true,
@@ -82,9 +84,13 @@ const Write = () => {
         date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
       };
 
+      // const apiUrl = state
+      //   ? `http://localhost:8800/api/posts/${state.id}`
+      //   : `http://localhost:8800/api/posts/`;
+
       const apiUrl = state
-        ? `http://localhost:8800/api/posts/${state.id}`
-        : `http://localhost:8800/api/posts/`;
+        ? `https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/posts/${state.id}`
+        : `https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/posts/`;
 
       console.log("POST Data:", postData); // Log the data being sent
 

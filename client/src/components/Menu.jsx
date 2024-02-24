@@ -8,8 +8,10 @@ const Menu = ({ cat }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // const res = await axios.get(
+        //   `http://localhost:8800/api/posts/?cat=${cat}`,
         const res = await axios.get(
-          `http://localhost:8800/api/posts/?cat=${cat}`,
+          `https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/posts/?cat=${cat}`,
           {
             withCredentials: true,
           }

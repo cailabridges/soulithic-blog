@@ -18,9 +18,13 @@ const EditProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/api/users", {
-          withCredentials: true,
-        });
+        // const res = await axios.get("http://localhost:8800/api/users", {
+        const res = await axios.get(
+          "https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/users",
+          {
+            withCredentials: true,
+          }
+        );
         const userData = res.data;
         setUsername(userData.username || "");
         setImg(userData.img || "");
@@ -56,8 +60,10 @@ const EditProfile = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
+      // const res = await axios.post(
+      //   "http://localhost:8800/api/upload",
       const res = await axios.post(
-        "http://localhost:8800/api/upload",
+        "https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/upload",
         formData,
         {
           withCredentials: true,
@@ -84,17 +90,17 @@ const EditProfile = () => {
       console.log("Save Changes button clicked!");
       console.log("User ID:", userId);
 
-      // Check if username has been updated
       if (username !== currentUser.username) {
         usernameUpdated = true;
       }
 
-      // Update 'img' state with the new uploaded image URL
-      setImg(uploadedImgUrl); // Update the 'img' state with the new URL
+      setImg(uploadedImgUrl);
 
+      //  await axios.put(
+      //   `http://localhost:8800/api/users/${userId}`,
       await axios.put(
-        `http://localhost:8800/api/users/${userId}`,
-        { username, img: uploadedImgUrl }, // Send the updated 'img' URL to the backend
+        `https://soulithic-blog-0c6e31e9a9e9.herokuapp.com/api/users/${userId}`,
+        { username, img: uploadedImgUrl },
         {
           withCredentials: true,
         }

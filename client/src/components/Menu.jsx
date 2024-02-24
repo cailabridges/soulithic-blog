@@ -58,7 +58,11 @@ const Menu = ({ cat }) => {
         <div className="post" key={post.id}>
           <img src={`../../../dist/upload/${post.img}`} alt="" />
           <h2>{post.title}</h2>
-          <Link className="link" to={`http://localhost:5173/post/${post.id}`}>
+          {/* <Link className="link" to={`http://localhost:5173/post/${post.id}`}></Link> */}
+          <Link
+            className="link"
+            to={`https://soulithicblog.netlify.app/post/${post.id}`}
+          >
             <button>Read More</button>
           </Link>
         </div>

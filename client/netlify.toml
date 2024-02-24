@@ -1,7 +1,3 @@
-[build]
-  command = "yarn build"
-  publish = "dist" # Adjust this path to match your build output directory
-
 [[redirects]]
   from = "/*"
   to = "/index.html"
